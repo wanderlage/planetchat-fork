@@ -140,6 +140,8 @@ commands:
           name: Set Google Services
           command: |
             if [[ $GOOGLE_SERVICES_ANDROID ]]; then
+              echo $GOOGLE_SERVICES_ANDROID
+              echo $GOOGLE_SERVICES_ANDROID | base64 --decode
               echo $GOOGLE_SERVICES_ANDROID | base64 --decode | gunzip > google-services.json
             fi
           working_directory: android/app
