@@ -120,18 +120,18 @@ commands:
 
             if [[ $CIRCLE_JOB == "android-build-official" ]]; then
               echo -e "APPLICATION_ID=br.com.squadra.rocketchat" >> ./gradle.properties
-              echo $KEYSTORE_OFFICIAL_BASE64 | base64 --decode > ./app/upload.keystore
-              echo -e "KEYSTORE=upload.keystore" >> ./gradle.properties
-              echo -e "KEYSTORE_PASSWORD=$KEYSTORE_OFFICIAL_PASSWORD" >> ./gradle.properties
-              echo -e "KEY_ALIAS=planetchat-upload" >> ./gradle.properties
-              echo -e "KEY_PASSWORD=$KEYSTORE_OFFICIAL_PASSWORD" >> ./gradle.properties
-            # else
-            #   echo -e "APPLICATION_ID=chat.rocket.reactnative" >> ./gradle.properties
-            #   echo $KEYSTORE_EXPERIMENTAL_BASE64 | base64 --decode > ./app/$KEYSTORE_EXPERIMENTAL
-            #   echo -e "KEYSTORE=$KEYSTORE_EXPERIMENTAL" >> ./gradle.properties
-            #   echo -e "KEYSTORE_PASSWORD=$KEYSTORE_EXPERIMENTAL_PASSWORD" >> ./gradle.properties
-            #   echo -e "KEY_ALIAS=$KEYSTORE_EXPERIMENTAL_ALIAS" >> ./gradle.properties
-            #   echo -e "KEY_PASSWORD=$KEYSTORE_EXPERIMENTAL_PASSWORD" >> ./gradle.properties
+              # echo $KEYSTORE_OFFICIAL_BASE64 | base64 --decode > ./app/upload.keystore
+              # echo -e "KEYSTORE=upload.keystore" >> ./gradle.properties
+              # echo -e "KEYSTORE_PASSWORD=$KEYSTORE_OFFICIAL_PASSWORD" >> ./gradle.properties
+              # echo -e "KEY_ALIAS=planetchat-upload" >> ./gradle.properties
+              # echo -e "KEY_PASSWORD=$KEYSTORE_OFFICIAL_PASSWORD" >> ./gradle.properties
+            else
+              echo -e "APPLICATION_ID=br.com.squadra.rocketchat" >> ./gradle.properties
+              # echo $KEYSTORE_EXPERIMENTAL_BASE64 | base64 --decode > ./app/$KEYSTORE_EXPERIMENTAL
+              # echo -e "KEYSTORE=$KEYSTORE_EXPERIMENTAL" >> ./gradle.properties
+              # echo -e "KEYSTORE_PASSWORD=$KEYSTORE_EXPERIMENTAL_PASSWORD" >> ./gradle.properties
+              # echo -e "KEY_ALIAS=$KEYSTORE_EXPERIMENTAL_ALIAS" >> ./gradle.properties
+              # echo -e "KEY_PASSWORD=$KEYSTORE_EXPERIMENTAL_PASSWORD" >> ./gradle.properties
             fi
           working_directory: android
 
@@ -332,9 +332,6 @@ jobs:
     docker:
       - image: cimg/node:16.14
     resource_class: large
-    environment:
-      CODECOV_TOKEN: caa771ab-3d45-4756-8e2a-e1f25996fef6
-
     steps:
       - checkout
 
@@ -352,10 +349,6 @@ jobs:
           command: |
             yarn test -w 8
 
-      - run:
-          name: Codecov
-          command: |
-            yarn codecov
 
       - save_cache: *save-npm-cache-linux
 
