@@ -19,8 +19,8 @@
 			android:exported="true" >
 		</receiver>
 		<meta-data
-				android:name="br.com.squadra.rocketchat"
-				android:value="1" />
+				android:name="com.bugsnag.android.API_KEY"
+				android:value="${BugsnagAPIKey}" />
 	</application>
 
 </manifest>
